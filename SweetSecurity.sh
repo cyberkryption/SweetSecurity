@@ -17,6 +17,8 @@ emailPwd=${emailPwd:-P@55word}
 
 
 cd /home/pi
+echo "Removing NodeJS conflicts"
+apt-get -y purge nodejs-legacy nodered nodejs
 
 echo "Installing Pre-Requisites..."
 sudo apt-get -y install cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev ant zip nmap
@@ -63,13 +65,13 @@ sudo mv logstash-1.5.3/ /opt/logstash/
 sudo rm logstash-1.5.3.tar.gz
 cd /home/pi
 #sudo git clone https://github.com/jnr/jffi.git
-cd jffi
-sudo ant jar
-sudo cp build/jni/libjffi-1.2.so /opt/logstash/vendor/jruby/lib/jni/arm-Linux
+#cd jffi
+#sudo ant jar
+#sudo cp build/jni/libjffi-1.2.so /opt/logstash/vendor/jruby/lib/jni/arm-Linux
 cd /opt/logstash/vendor/jruby/lib
 sudo zip -g jruby-complete-1.7.11.jar jni/arm-Linux/libjffi-1.2.so
 cd /home/pi
-sudo rm -rf jffi/
+#sudo rm -rf jffi/
 sudo cp SweetSecurity/init.d/logstash /etc/init.d
 sudo chmod 755 /etc/init.d/logstash
 sudo update-rc.d logstash defaults
